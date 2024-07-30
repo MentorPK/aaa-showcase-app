@@ -11,7 +11,6 @@ export function addCustomYupValidators() {
     // Yup.addMethod(Yup.string, "iban", function (errorMessage) {
     //     return this.test(`iban`, errorMessage, function (value) {
     //         const { path, createError } = this;
-
     //         return (
     //             ibantools.isValidIBAN(value || "") ||
     //             createError({ path, message: errorMessage })

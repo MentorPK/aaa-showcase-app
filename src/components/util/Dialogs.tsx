@@ -1,6 +1,6 @@
 import { t } from "../../i18n/util";
 
-type ConfirmationOptions = {  count?: number };
+type ConfirmationOptions = { count?: number };
 
 // https://stackoverflow.com/a/57300713
 const getSingleOrMultiKey = <T extends string>(singleKey: T, { count }: ConfirmationOptions = {}) =>
