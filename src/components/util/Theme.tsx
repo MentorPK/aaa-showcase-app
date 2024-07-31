@@ -7,7 +7,7 @@ export const theme = createTheme({
     },
     palette: {
         primary: {
-            main: Colors.PRIMARY_COLOR,
+            main: Colors.FBCOLOR,
         },
         secondary: {
             main: Colors.SECONDARY_COLOR,
