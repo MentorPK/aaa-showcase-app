@@ -1,67 +1,77 @@
-import { NavLink, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useStore } from "zustand";
-import { AppBar, Box, Grid, IconButton, styled, Toolbar, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Skeleton, Typography } from "@mui/material";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import footBallClubStore from "../../stores/footBallClubStore";
 import { ClubProps } from "../../types/fbClubTypes";
 import { useEffect } from "react";
+import { tHtml } from "../../i18n/util";
+import TopBar from "./TopBar";
 
-const BoldSpan = styled("span")({
-    display: "inline-block",
-    fontWeight: "bold",
-});
+const SkeletonLoader = () => {
+    return (
+        <>
+            <Skeleton width={"100%"} />
+            <Skeleton width={"50%"} />
+        </>
+    );
+};
 
 type ClubComponentProps = {
     club: ClubProps | undefined;
+    isLoading: boolean;
+    error: String | null;
 };
 
-const ClubBody = ({ club }: ClubComponentProps) => {
-    if (!club) {
-        return (
-            <Box m={8} display="flex" justifyContent="center">
-                <Typography variant="h4">Sorry Club Details are not available :(!</Typography>
-            </Box>
-        );
-    }
-
+const ClubBody = ({ club, isLoading }: ClubComponentProps) => {
     return (
-        <Box mt={2} ml={2}>
-            <Grid container direction="column" gap={4}>
+        <Box mt={2} mx={2}>
+            <Grid container direction="column" gap={2}>
                 <Grid item>
-                    <Typography>
-                        Der Club <BoldSpan>{club?.name}</BoldSpan> aus {club?.country} hat ein Wert von {club?.value}.
-                    </Typography>
+                    {!isLoading ? (
+                        <Typography>
+                            {tHtml("fbDetails.value", { clubName: club?.name, clubValue: club?.value })}
+                        </Typography>
+                    ) : (
+                        <SkeletonLoader />
+                    )}
                 </Grid>
                 <Grid item>
-                    <Typography>
-                        <BoldSpan>{club?.name}</BoldSpan> konnte bislang {club?.european_titles} Siege auf europäischer
-                        Ebene erreichgen.
-                    </Typography>
+                    {!isLoading ? (
+                        <Typography>
+                            {tHtml("fbDetails.wins", { clubName: club?.name, clubWins: club?.european_titles })}
+                        </Typography>
+                    ) : (
+                        <SkeletonLoader />
+                    )}
                 </Grid>
             </Grid>
         </Box>
     );
 };
 
-const ClubBanner = ({ club }: ClubComponentProps) => {
+const ClubBanner = ({ club, isLoading, error }: ClubComponentProps) => {
     const background = "#333333";
+    const spinner = (
+        <Box height={320} width={320} display={"flex"} alignItems={"center"}>
+            <CircularProgress color="primary" size={160} />
+        </Box>
+    );
     return (
-        <Box sx={{ background }} p={4}>
+        <Box sx={{ background }} p={2}>
             {club ? (
                 <>
                     <Grid container justifyContent={"center"} flexDirection={"row"}>
-                        <Grid item>
-                            <img src={club?.image} style={{ height: "360px" }} />
-                        </Grid>
+                        <Grid item>{!isLoading ? <img src={club?.image} style={{ height: "320px" }} /> : spinner}</Grid>
                     </Grid>
                     <Typography variant="h4" color="white">
-                        {club?.name}
+                        {!isLoading && club?.name}
                     </Typography>
                 </>
             ) : (
                 <Box sx={{ height: 420, display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <Typography variant="h4" color="white">
-                        Sorry Club Details are not available :(!
+                        {error}
                     </Typography>
                 </Box>
             )}
@@ -71,9 +81,13 @@ const ClubBanner = ({ club }: ClubComponentProps) => {
 
 const FootBallClubDetailsSite = () => {
     const params = useParams();
-    const { clubs, fetchClubs } = useStore(footBallClubStore);
+    const { clubs, fetchClubs, isLoading, error } = useStore(footBallClubStore);
+    const navigate = useNavigate();
     const clubName = params.details?.replace(/-/g, " ");
     const club = clubs.find((item: ClubProps) => item?.name === clubName);
+    const navigateBack = () => {
+        navigate("/");
+    };
 
     useEffect(() => {
         fetchClubs();
@@ -81,26 +95,9 @@ const FootBallClubDetailsSite = () => {
 
     return (
         <>
-            <AppBar position="sticky" sx={{ color: "white" }}>
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                        component={NavLink}
-                        to={"/"}
-                    >
-                        <ArrowBack />
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        {club?.name}
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <ClubBanner club={club} />
-            <ClubBody club={club} />
+            <TopBar icon={<ArrowBack />} text={club?.name} handleClick={navigateBack} actionLeft />
+            <ClubBanner club={club} isLoading={isLoading} error={error} />
+            <ClubBody club={club} isLoading={isLoading} error={error} />
         </>
     );
 };

@@ -1,11 +1,13 @@
-import { Box, Divider, Grid, List, ListItem, ListItemButton, ListItemText, Skeleton } from "@mui/material";
+import { Box, Divider, Grid, List, ListItem, ListItemButton, Skeleton, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { ClubProps } from "../../types/fbClubTypes";
 import { Fragment, ReactNode } from "react";
+import { tHtml } from "../../i18n/util";
 
 type ClubListProps = {
     clubs: ClubProps[];
     error: String | null;
+    isLoading: boolean;
 };
 
 type ImageWrapper = {
@@ -13,12 +15,12 @@ type ImageWrapper = {
 };
 //this is neccessary because Arsenal FC had a different image size and it was off,
 //to ensure that everything is centered, this wrapper does the job :)
-//ask for a new image size from the designer would be also a solution
+//changing image size is also a solution
 const ImageWrapper = ({ children }: ImageWrapper) => {
     return <div style={{ width: "64px", display: "flex", justifyContent: "center" }}>{children}</div>;
 };
 
-const Placeholder = () => {
+const SkeletonList = () => {
     const arr = Array.from({ length: 14 });
     return (
         <>
@@ -33,7 +35,7 @@ const Placeholder = () => {
                                     </Grid>
                                     <Grid item>
                                         <Skeleton width={400} />
-                                        <Skeleton width={400} />
+                                        <Skeleton width={300} />
                                     </Grid>
                                 </Grid>
                             </Box>
@@ -52,16 +54,14 @@ type ErrorProps = {
 const Error = ({ error }: ErrorProps) => {
     return (
         <Box height="500px" width="100%" display="flex" justifyContent="center" alignItems="center">
-            {error}
+            <Typography variant="h5">{error}</Typography>
         </Box>
     );
 };
 
-const ClubList = ({ clubs, error }: ClubListProps) => {
-    console.log(clubs, "WAT")
-    if (clubs.length < 1) {
-        console.log("HALLO")
-        return <Placeholder />;
+const ClubList = ({ clubs, error, isLoading }: ClubListProps) => {
+    if (isLoading) {
+        return <SkeletonList />;
     }
     if (error) {
         return <Error error={error} />;
@@ -81,15 +81,17 @@ const ClubList = ({ clubs, error }: ClubListProps) => {
                             <Grid item>
                                 <Grid container direction="column">
                                     <Grid item>
-                                        <ListItemText primary={`${club?.name}`} />
-                                        <Grid container wrap="nowrap" spacing={1}>
-                                            <Grid item>
-                                                <ListItemText secondary={`${club?.country}`} />
-                                            </Grid>
-                                            <Grid item>
-                                                <ListItemText secondary={`${club?.value} Millionen Euro`} />
-                                            </Grid>
-                                        </Grid>
+                                        <Typography variant="subtitle1">
+                                            <b>{`${club?.name}`}</b>
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography variant="body2">
+                                            {tHtml("fbList.text", {
+                                                clubCountry: club?.country,
+                                                clubValue: club?.value,
+                                            })}
+                                        </Typography>
                                     </Grid>
                                 </Grid>
                             </Grid>

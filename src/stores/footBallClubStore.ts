@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { ClubProps, SortProps } from "../types/fbClubTypes";
 import { persist } from "zustand/middleware";
 import axios, { AxiosError } from "axios";
+import { t } from "../i18n/util";
 
 export type FootBallClubStore = {
     clubs: ClubProps[];
@@ -9,7 +10,7 @@ export type FootBallClubStore = {
     fetchClubs: () => Promise<void>;
     sortClubs: (sortBy: SortProps) => void;
     sortBy: SortProps;
-    loading: Boolean;
+    isLoading: boolean;
 };
 
 const sortClubs = (clubs: ClubProps[], sortBy: SortProps): ClubProps[] => {
@@ -21,26 +22,23 @@ const footBallClubStore = create(
         (set, get) => ({
             clubs: [],
             error: null,
-            sortBy: "name",
-            loading: false,
+            sortBy: "name", //default
+            isLoading: false,
             fetchClubs: async (): Promise<void> => {
                 try {
-                    set({ loading: true });
+                    set({ isLoading: true });
                     const res = await axios.get("https://public.allaboutapps.at/hiring/clubs.json");
                     const data = await res.data;
                     const { sortBy } = get() as { sortBy: SortProps };
                     const sortedClubs = sortClubs(data, sortBy);
-                    //only to see the loading
-                    setTimeout(() => {
-                        set({ clubs: sortedClubs });
-                    }, 2500);
+                    set({ clubs: sortedClubs });
                 } catch (error) {
                     const err = error as AxiosError;
                     set({
-                        error: `Football club data could not be fetched, please try again later! :(\n${err.message}`,
+                        error: t("fbFetch.error", { errorMessage: err.message }),
                     });
                 } finally {
-                    set({ loading: false });
+                    set({ isLoading: false });
                 }
             },
             sortClubs: (sortBy: SortProps) => {
