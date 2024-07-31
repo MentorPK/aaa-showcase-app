@@ -1,6 +1,6 @@
 {
   "name": "aaa-showcase-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@emotion/cache": "^11.10.5",
@@ -36,7 +36,7 @@
     "test": "vitest --passWithNoTests",
     "test:ci": "CI=true yarn test",
     "test:e2e": "start-server-and-test start http://localhost:3000 cypress:run",
-    "format": "prettier --write '**/*.{js,jsx,ts,tsx,gql,css,json,html,htm}'",
+    "format": "prettier --write **/*.{js,jsx,ts,tsx,gql,css,json,html,htm}",
     "codegen": "./scripts/swagger-codegen.sh",
     "lint:google-fonts": "./scripts/lint-google-fonts.sh",
     "lint:base-href": "./scripts/lint-base-href.sh",
@@ -86,6 +86,7 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
     "happy-dom": "^9.20.3",
+    "husky": "^8.0.3",
     "license-checker": "^25.0.1",
     "prettier": "^2.8.8",
     "start-server-and-test": "^1.15.2",
@@ -93,7 +94,6 @@
     "vite": "^4.3.9",
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^0.32.2",
-    "husky": "^8.0.3"
+    "vitest": "^0.32.2"
   }
 }

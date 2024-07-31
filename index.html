@@ -5,7 +5,7 @@
 
     <!-- This is needed because for dynamic deployment we use PUBLIC_URL of ".". <base> makes sure relative paths resolve
          correctly and is patched in docker-entrypoint.sh with VITE_BASE_NAME -->
-    <base href="/">
+    <base href="/" />
 
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,19 +15,19 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="shortcut icon" href="/favicon.ico" />
-    
+
     <script src="/config.js" type="application/javascript"></script>
 
-    <title>TODO: Change me</title>
+    <title>all about clubs</title>
   </head>
 
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    
+
     <!-- Entry point-->
     <script type="module" src="/src/index.tsx"></script>
-    
+
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

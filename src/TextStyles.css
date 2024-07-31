@@ -4,34 +4,38 @@ If those colors are used programmatically then add to Colors.ts using "var(--bod
 redeclaring the color to prevent colors in CSS and JS getting out of sync.
 */
 
-:root{
+:root {
     --body1: #444756;
     --body2: #797979;
-    --headings: #1D2442;
+    --headings: #1d2442;
 }
 
-h1, .h1 {
+h1,
+.h1 {
     font-family: "Open Sans";
     color: var(--headings);
     font-size: 32px;
     font-weight: bold;
 }
 
-h2, .h2 {
+h2,
+.h2 {
     font-family: "Open Sans";
     color: var(--headings);
     font-size: 24px;
     font-weight: bold;
 }
 
-h3, .h3 {
+h3,
+.h3 {
     font-family: "Open Sans";
     color: var(--headings);
     font-size: 20px;
     font-weight: bold;
 }
 
-h4, .h4 {
+h4,
+.h4 {
     font-family: "Open Sans";
     color: var(--headings);
     font-size: 16px;
@@ -40,7 +44,8 @@ h4, .h4 {
 }
 
 /* p defaults to body1 */
-p, .body1 {
+p,
+.body1 {
     font-family: "Open Sans";
     font-size: 14px;
     letter-spacing: 0.1px;
@@ -53,15 +58,17 @@ p, .body1 {
     color: var(--body2);
 }
 
-@media(max-width: 1000px) {
-    h1, .h1 {
+@media (max-width: 1000px) {
+    h1,
+    .h1 {
         font-family: "Open Sans";
         color: var(--headings);
         font-weight: bold;
         font-size: 24px;
     }
 
-    h2, .h2 {
+    h2,
+    .h2 {
         font-family: "Open Sans";
         color: var(--headings);
         font-weight: bold;

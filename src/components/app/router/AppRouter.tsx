@@ -3,7 +3,7 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { BASE_NAME, DEBUG_PUBLIC_DASHBOARD, LOADING_INDICATOR_DELAY_MS } from "../../../config";
 import { IDebugTab, useDebugStore } from "../../../stores/debugStore";
 import { useGeneralStore } from "../../../stores/generalStore";
-import { AuthLoginSite } from "../../auth/sites/AuthLoginSite";
+//import { AuthLoginSite } from "../../auth/sites/AuthLoginSite";
 import { DashboardRoutes } from "../../dashboard/router/DashboardRoutes";
 import { DashboardSite } from "../../dashboard/sites/DashboardSite";
 import { Debug } from "../../debug/Debug";
@@ -17,6 +17,8 @@ import { PrivateRoute } from "./PrivateRoute";
 import { RoutingManager } from "./RoutingManager";
 import ScrollToTop from "./ScrollToTop";
 import { useQueryParams } from "../../../hooks/useQueryParams";
+import { FootBallClubSite } from "../../footBallClub/FootBallClubSite";
+import FootBallClubDetailsSite from "../../footBallClub/FootBallClubDetailsSite";
 
 export const AppRouter = () => {
     const isLoading = useGeneralStore((state) => state.isLoading);
@@ -32,7 +34,8 @@ export const AppRouter = () => {
                 <RoutingManager>
                     <Routes>
                         <Route element={<NoAuthOnlyRoute />}>
-                            <Route path={BaseRoutes.ROOT} element={<AuthLoginSite />} />
+                            <Route path={BaseRoutes.ROOT} element={<FootBallClubSite />} />
+                            <Route path={BaseRoutes.FBCLUBDETAILS} element={<FootBallClubDetailsSite />} />
                         </Route>
                         <Route element={DEBUG_PUBLIC_DASHBOARD ? <Outlet /> : <PrivateRoute />}>
                             <Route path={DashboardRoutes.ROOT} element={<DashboardSite />} />
