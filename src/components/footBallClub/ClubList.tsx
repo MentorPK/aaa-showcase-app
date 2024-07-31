@@ -68,7 +68,7 @@ const ClubList = ({ clubs, error, isLoading }: ClubListProps) => {
     }
 
     return (
-        <List>
+        <List disablePadding>
             {clubs.map((club: ClubProps, idx: number) => (
                 <ListItem disablePadding key={idx}>
                     <ListItemButton divider component={NavLink} to={`/detailsview/${club.name.replace(/\s/g, "-")}`}>

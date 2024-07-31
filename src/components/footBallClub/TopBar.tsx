@@ -21,7 +21,7 @@ const TopBar = ({ handleClick, text, icon, actionLeft = false }: TopBarProps) =>
                 }}
             >
                 {text ? <Typography variant="h6">{text}</Typography> : textSkeleton}
-                <IconButton size="large" edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
+                <IconButton size="large" edge="start" color="inherit" aria-label="menu" onClick={handleClick} sx={{mr:2}}>
                     {icon}
                 </IconButton>
             </Toolbar>
