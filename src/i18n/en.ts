@@ -36,4 +36,8 @@ export const english = {
     "addDialog.title": "Add entry",
     "addDialog.title.multi": "Add entries",
     "screen.dashboard.html": "This is <b>bold text</b> and this is <i>italic</i>",
+    "fbDetails.value": "The club <b>{clubName}</b> from Spain has a value of {clubValue}.",
+    "fbDetails.wins": "<b>{clubName}</b> has {clubWins} wins at European level so far.",
+    "fbList.text": "<b>{clubCountry}</b> {clubValue} million euro",
+    "fbFetch.error": "Football club data could not be retrieved, please try again later! :'(\n{errorMessage}",
 } as const;

@@ -38,4 +38,9 @@ export const german = {
     "addDialog.title.multi": "Einträge hinzufügen",
     "screen.dashboard.html": "Das ist ein <b>fetter Text</b> und das ist <i>kursiv</i>",
     "test.twoParams": "Text mit {param1} und {param2}",
+    "fbDetails.value": "Der Club <b>{clubName}</b> aus Spanien hat ein Wert von {clubValue}.",
+    "fbDetails.wins": "<b>{clubName}</b> konnte bislang {clubWins} Siege auf europäischer Ebene erreichen.",
+    "fbList.text": "<b>{clubCountry}</b> {clubValue} Millionen Euro.",
+    "fbFetch.error":
+        "Die Fußballvereinsdaten konnten nicht abgerufen werden, bitte versuchen Sie es später noch einmal! :'(\n{errorMessage}",
 } as const;
