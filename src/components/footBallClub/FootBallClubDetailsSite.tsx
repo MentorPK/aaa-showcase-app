@@ -57,9 +57,10 @@ const ClubBanner = ({ club, isLoading, error }: ClubComponentProps) => {
             <CircularProgress color="primary" size={160} />
         </Box>
     );
+
     return (
         <Box sx={{ background }} p={2}>
-            {club ? (
+            {!error ? (
                 <>
                     <Grid container justifyContent={"center"} flexDirection={"row"}>
                         <Grid item>{!isLoading ? <img src={club?.image} style={{ height: "320px" }} /> : spinner}</Grid>
