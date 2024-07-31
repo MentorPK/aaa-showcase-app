@@ -17,6 +17,8 @@ import { PrivateRoute } from "./PrivateRoute";
 import { RoutingManager } from "./RoutingManager";
 import ScrollToTop from "./ScrollToTop";
 import { useQueryParams } from "../../../hooks/useQueryParams";
+import { FootBallClubSite } from "../../footBallClub/FootBallClubSite";
+import FootBallClubDetailsSite from "../../footBallClub/FootBallClubDetailsSite";
 
 export const AppRouter = () => {
     const isLoading = useGeneralStore((state) => state.isLoading);
@@ -32,7 +34,8 @@ export const AppRouter = () => {
                 <RoutingManager>
                     <Routes>
                         <Route element={<NoAuthOnlyRoute />}>
-                            <Route path={BaseRoutes.ROOT} element={<AuthLoginSite />} />
+                            <Route path={BaseRoutes.ROOT} element={<FootBallClubSite />} />
+                            <Route path={BaseRoutes.FBCLUBDETAILS} element={<FootBallClubDetailsSite />} />
                         </Route>
                         <Route element={DEBUG_PUBLIC_DASHBOARD ? <Outlet /> : <PrivateRoute />}>
                             <Route path={DashboardRoutes.ROOT} element={<DashboardSite />} />
